@@ -1,0 +1,16 @@
+credentials:
+  mobile: "YOUR_MOBILE_NUMBER"
+  password: "YOUR_PASSWORD"  # or provide token/OTP externally
+address:
+  line1: "B-16, Satyawati colony"
+  line2: "ashok vihar phase 3"
+  city: "Delhi"
+  state: "Delhi"
+  pincode: "110052"
+card:
+  number: "1111222233334444"
+  expiry: "12/28"
+  cvv: "123"
+sku_url: "https://shop.amul.com/en/product/amul-lactose-free-milk-250-ml-or-pack-of-32"
+schedule:
+  cron: "0 9 * * MON"  # every Monday at 9 AM
