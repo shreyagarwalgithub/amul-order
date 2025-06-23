@@ -19,4 +19,15 @@ python amul_order.py
 ```
 The script uses a cron expression defined in `config.yaml` (`schedule.cron`) to determine when to place the order. By default it runs every Monday at 9 AM.
 
+### Testing without the scheduler
+
+If you just want to test the automation once without enabling the cron loop, use
+the `--once` flag:
+
+```bash
+python amul_order.py --once
+```
+
+This runs the login, cart, and checkout steps once and then exits.
+
 The HTTP endpoints used here are placeholders. You may need to update them according to the actual API offered by Amul.

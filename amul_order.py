@@ -2,7 +2,8 @@ from croniter import croniter
 import time
 import yaml
 import requests
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+import argparse
 
 CONFIG_PATH = 'config.yaml'
 
@@ -91,8 +92,8 @@ def process_order():
 
 import datetime
 
-def main():
-    config = load_config()
+
+def run_scheduler(config: Config) -> None:
     base = datetime.datetime.now()
     cron = croniter(config.cron, base)
     next_run = cron.get_next(datetime.datetime)
@@ -103,6 +104,26 @@ def main():
             process_order()
             next_run = cron.get_next(datetime.datetime)
         time.sleep(30)
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Amul order automation")
+    parser.add_argument(
+        "--once",
+        action="store_true",
+        help="Run the order flow once immediately and exit",
+    )
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = parse_args()
+    config = load_config()
+    if args.once:
+        process_order()
+    else:
+        run_scheduler(config)
+
 
 if __name__ == "__main__":
     main()
