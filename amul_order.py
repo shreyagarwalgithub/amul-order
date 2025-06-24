@@ -2,7 +2,7 @@ from croniter import croniter
 import time
 import yaml
 import requests
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 CONFIG_PATH = 'config.yaml'
 
@@ -95,13 +95,13 @@ def main():
     config = load_config()
     base = datetime.datetime.now()
     cron = croniter(config.cron, base)
-    next_run = cron.get_next(datetime.datetime)
+    next_run = datetime.datetime.fromtimestamp(cron.get_next())
     print(f"Scheduler started with cron: {config.cron}")
     while True:
         now = datetime.datetime.now()
         if now >= next_run:
             process_order()
-            next_run = cron.get_next(datetime.datetime)
+            next_run = datetime.datetime.fromtimestamp(cron.get_next())
         time.sleep(30)
 
 if __name__ == "__main__":
